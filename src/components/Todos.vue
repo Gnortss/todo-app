@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <button type="submit" @click="$emit('select:null')">Back</button>
-    <h1>{{ name }}</h1>
-    <div v-for="{ id, title } in todos" :key="id">
-      <button type="submit" @click="$emit('remove:todo', id)">Remove</button>
-      {{ title }}
-    </div>
+  <v-container>
+    <v-list-item v-for="todo in todos" :key="todo.id">
+      <v-list-item-action>
+        <v-checkbox v-model="todo.completed" @click.passive="$emit('update')">
+          <template v-slot:label>
+            <div class="ml-4" v-text="todo.title">
+            </div>
+          </template>
+        </v-checkbox>
+      </v-list-item-action>
+      <v-btn type="submit" @click="$emit('remove:todo', todo.id)">Remove</v-btn>
+    </v-list-item>
     <div>
       <input type="text" name="newTodo" id="newTodo" v-model="newTodoTitle">
-      <button type="submit" @click="addTodo">Add Todo</button>
+      <v-btn type="submit" @click="addTodo">Add Todo</v-btn>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

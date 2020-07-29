@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <slot></slot>
-    <h1>List of my todos:</h1>
-    <input type="text" name="listName" id="listName" v-model="newListName">
-    <button type="submit" @click="addList">Add new list</button>
-    <div class="todosList" v-for="{id, name} in list" :key="id" @click.self="$emit('select:list', id)">
-      <button @click="$emit('remove:list', id)">Remove</button>
-      {{ name }}
-    </div>
-  </div>
+  <v-container>
+    <v-text-field type="text" name="listName" id="listName" v-model="newListName"></v-text-field>
+    <v-btn type="submit" @click="addList">Add new list</v-btn>
+    <v-list-item v-for="{name, id} in list" :key="id" @click="$emit('select:list', id)">
+      <v-list-item-title>{{ name }}</v-list-item-title>
+      <v-btn @click.stop="$emit('remove:list', id)">Remove</v-btn>
+    </v-list-item>
+  </v-container>
 </template>
 
 <script>
@@ -30,8 +28,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.todosList {
-  border: 1px solid black;
-}
-</style>
+<style scoped></style>

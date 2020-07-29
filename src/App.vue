@@ -1,17 +1,25 @@
 <template>
-  <div id="app">
-    <TodosList v-if="selected === null" :list="todosList" 
-      @remove:list="removeList($event)" 
-      @select:list="selected=todosList.find(todos => todos.id === $event)"
-      @add:list="addList($event)">
-      <input type="text" name="listName" id="todosName" v-model="listName">
-      <button type="submit" @click="addList">Create new List</button>
-    </TodosList>
-    <Todos v-else :name="selected.name" :todos="selected.todos"
-      @remove:todo="removeTodo($event)" 
-      @select:null="selected=null"
-      @add:todo="addTodo($event)"/>
-  </div>
+  <v-app>
+    <v-app-bar app dense>
+      <template v-if="selected !== null">
+        <v-btn icon v-if="selected !== null" @click.stop="selected=null"><v-icon>arrow_back_ios</v-icon></v-btn>
+        <v-toolbar-title>{{ selected.name }}</v-toolbar-title>
+      </template>
+      <template v-else>
+        <v-toolbar-title>My todos</v-toolbar-title>
+      </template>
+    </v-app-bar>
+    <v-main>
+      <TodosList v-if="selected === null" :list="todosList" 
+        @remove:list="removeList($event)" 
+        @select:list="selected=todosList.find(todos => todos.id === $event)"
+        @add:list="addList($event)"/>
+      <Todos v-else :name="selected.name" :todos="selected.todos"
+        @update="updateTodosListLocalStorage(todosList)"
+        @remove:todo="removeTodo($event)"
+        @add:todo="addTodo($event)"/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
