@@ -12,7 +12,7 @@
       <v-btn type="submit" @click="$emit('remove:todo', todo.id)">Remove</v-btn>
     </v-list-item>
     <div>
-      <input type="text" name="newTodo" id="newTodo" v-model="newTodoTitle">
+      <v-text-field type="text" name="newTodo" id="newTodo" v-model="newTodoTitle"></v-text-field>
       <v-btn type="submit" @click="addTodo">Add Todo</v-btn>
     </div>
   </v-container>
