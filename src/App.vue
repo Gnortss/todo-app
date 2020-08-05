@@ -44,8 +44,8 @@ export default {
     }
   },
   methods: {
-    addList: function(name) {
-      this.todosList = [...this.todosList, { id: uuidv4(), name, todos: [] }];
+    addList: function({ name, color }) {
+      this.todosList = [...this.todosList, { id: uuidv4(), name, color, todos: [] }];
     },
     removeList: function(id) {
       this.todosList = this.todosList.filter((v) => v.id != id);
